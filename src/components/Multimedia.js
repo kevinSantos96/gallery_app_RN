@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import RNFS from 'react-native-fs';
 import Images from './Images';
 
 
 const ImageListScreen = ()=>{
-  const [imagePath, setImagePath] = useState("") 
   const [imageData,setImageData] =  useState([]) 
   
-
   async function loadImagesFromStorage(){
     try {
-      //const externalStoragePath = RNFS.ExternalStorageDirectoryPath;
-      // const externalStoragePath = RNFS.ExternalStorageDirectoryPath
-      // console.log(externalStoragePath)
-      // const files = await RNFS.readDir(externalStoragePath)
       //pictures fotos
       const PicturesFolderPath = RNFS.ExternalStorageDirectoryPath +'/Pictures'
       const files =  await RNFS.readDir(PicturesFolderPath)
@@ -24,7 +18,10 @@ const ImageListScreen = ()=>{
       //whatsapp fotos
       const whatsappFolderPath = RNFS.ExternalStorageDirectoryPath +'/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images'
       const whatsappImages = await RNFS.readDir(whatsappFolderPath)
-      //console.log(whatsappImages)
+      //images download
+      const downloadFolderPath = RNFS.ExternalStorageDirectoryPath +'/Download'
+      const downloadImages = await RNFS.readDir(downloadFolderPath)
+      //console.log(downloadImages)
 
       const items =[]
       files.map((file)=>{
@@ -51,6 +48,16 @@ const ImageListScreen = ()=>{
           mtime
         })
       })
+
+      downloadImages.map((down)=>{
+        const{name,path,mtime}= down
+        items.push({
+          name,
+          path,
+          mtime
+        })
+      })
+
       const compararFechas = (a, b) => {
         const fechaA = new Date(a.mtime);
         const fechaB = new Date(b.mtime);
@@ -65,13 +72,12 @@ const ImageListScreen = ()=>{
   }
   useEffect(() => {
     loadImagesFromStorage();
-    console.log(imageData)
   }, [])
   
   return(
     <View style={{flex:1,backgroundColor:'#000'}}>
       <View>
-      { <FlatList data={imageData} keyExtractor={(item)=> item.name} numColumns={2} renderItem={({item})=>{
+      { <FlatList data={imageData} keyExtractor={(item)=> item.name} numColumns={3}  renderItem={({item})=>{
             return(<Images path={"file:///"+ item.path}/>)
       }} />}
       </View>

@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       padding:10,
-      margin: 5,
+      margin: 2,
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 5,
      },
     imagen:{
-        width: 150,
-        height:150
+        width: 110,
+        height:110
     }
 })
 export default Images
