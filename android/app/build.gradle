@@ -223,10 +223,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('gastosapp.keystore')
-            storePassword 'password123'
-            keyAlias 'gastos_app'
-            keyPassword 'password123'
+            storeFile file('gallery.keystore')
+            storePassword 'abc123'
+            keyAlias 'gallery_alias'
+            keyPassword 'abc123'
         }
         debug {
             storeFile file('debug.keystore')

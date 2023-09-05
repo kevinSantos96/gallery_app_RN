@@ -31,7 +31,7 @@ const GalleryScreen = ({navigation})=>{
                 let imageUri = response.uri|| response.assets?.[0]?.uri;
                 setSeletectImage(imageUri)
                 setImageZoom([{url:imageUri,props:{}}])
-                
+                console.warn(imageUri)
             }
         })
     }

@@ -8,6 +8,7 @@ import AudioRecoderScreen from "../screens/AudioRecoder";
 import GalleryScreen from "../screens/Gallery";
 import Splash from "../screens/Splash";
 import DocumentScreen from "../screens/Documents";
+import ImageListScreen from "./Multimedia";
 const Tab = createBottomTabNavigator()
 
 const MyTabs=()=>{
@@ -25,6 +26,8 @@ const MyTabs=()=>{
                                     iconName = focused ? 'play-circle':'play-circle-outline'
                                 }else if(rn==="Archivos"){
                                     iconName= focused ? 'folder':'folder-outline'
+                                }else if(rn==="Multimedia"){
+                                    iconName= focused ? 'play':'play-outline'
                                 }
                                 return <Ionicons name={iconName} size={size} color={color}/>
                             },
@@ -43,8 +46,9 @@ const MyTabs=()=>{
                         })}
                         >
             <Tab.Screen name="Galeria" component ={GalleryScreen} />
-            <Tab.Screen name="Grabador" component ={AudioRecoderScreen} />
+            {/* <Tab.Screen name="Grabador" component ={AudioRecoderScreen} /> */}
             <Tab.Screen name="Archivos" component ={DocumentScreen} />
+            <Tab.Screen name="Multimedia" component ={ImageListScreen} />
            {/*  <Tab.Screen  name="splash"  component={Splash} options={{animationEnabled: false, header: () => null}}/> */}
         </Tab.Navigator>
         </NavigationContainer>
