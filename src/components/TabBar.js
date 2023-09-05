@@ -14,20 +14,18 @@ const Tab = createBottomTabNavigator()
 const MyTabs=()=>{
     return(
         <NavigationContainer>
-        <Tab.Navigator initialRouteName="Galeria"
+        <Tab.Navigator initialRouteName="Multimedia"
                         screenOptions={({route})=>({
                             tabBarIcon:({focused,color,size})=>{
                                 let iconName;
                                 let rn= route.name;
 
-                                if(rn==="Galeria"){
+                                if(rn==="Multimedia"){
                                     iconName = focused ? 'image':'image-outline'
                                 }else if(rn==="Grabador"){
                                     iconName = focused ? 'play-circle':'play-circle-outline'
-                                }else if(rn==="Archivos"){
-                                    iconName= focused ? 'folder':'folder-outline'
-                                }else if(rn==="Multimedia"){
-                                    iconName= focused ? 'play':'play-outline'
+                                }else if(rn==="Documentos"){
+                                    iconName= focused ? 'document':'document-outline'
                                 }
                                 return <Ionicons name={iconName} size={size} color={color}/>
                             },
@@ -45,10 +43,10 @@ const MyTabs=()=>{
                             }
                         })}
                         >
-            <Tab.Screen name="Galeria" component ={GalleryScreen} />
+            {/* <Tab.Screen name="Galeria" component ={GalleryScreen} /> */}
             {/* <Tab.Screen name="Grabador" component ={AudioRecoderScreen} /> */}
-            <Tab.Screen name="Archivos" component ={DocumentScreen} />
             <Tab.Screen name="Multimedia" component ={ImageListScreen} />
+            <Tab.Screen name="Documentos" component ={DocumentScreen} />
            {/*  <Tab.Screen  name="splash"  component={Splash} options={{animationEnabled: false, header: () => null}}/> */}
         </Tab.Navigator>
         </NavigationContainer>

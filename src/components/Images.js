@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Text,Image, StyleSheet,View, TouchableOpacity } from 'react-native'
+import { Text,Image, StyleSheet,View, TouchableOpacity,Modal } from 'react-native'
 import ImageViewer from "react-native-image-zoom-viewer";
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Modal from "react-native-modal"
+//import Modal from "react-native-modal"
 
 function Images({path}) {
   const [imageSelect, setimageSelect] = useState([])
@@ -17,12 +17,11 @@ function Images({path}) {
           <Image source={{uri: path}}  style={styles.imagen} />
       </TouchableOpacity>
         
-        <Modal isVisible={openModal}>
-          <View style={{flex:1}}>
+        <Modal animationType='slide' visible={openModal}>
+          <View style={{flex:1,backgroundColor:'#000'}}>
               <TouchableOpacity onPress={toggleModal} style={{alignItems:"flex-end"}}>
-                  <Ionicons name="close-outline" color={"#FFF"}size={24} />
+                  <Ionicons name="close-outline" color={"#FFF"}size={24} style={{marginTop:10, marginRight:5}} />
               </TouchableOpacity>
-             {/*  <Image style={styles.imageOpen} source={{uri: seletedImage}}/> */}
              <ImageViewer style={styles.imageOpen} imageUrls={imageSelect}/>
           </View>
         </Modal>
