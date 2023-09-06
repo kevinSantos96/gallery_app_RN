@@ -17,31 +17,6 @@ const App = () => {
   
   return (
     <PaperProvider>
-     {/*  <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="splash"
-          screenOptions={{
-            headerTitleAlign: 'center',
-            headerStyle: {
-              backgroundColor: '#002E85',
-            },
-            headerTintColor: '#FFF',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}>
-          <Stack.Screen
-            name="splash"
-            component={Splash}
-            options={{animationEnabled: false, header: () => null}}
-          />
-          <Stack.Screen
-            name="Galeria"
-            component={GalleryScreen}
-            options={{animationEnabled: true, title: 'Galeria'}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer> */}
       <MyTabs/>
     </PaperProvider>
   );
