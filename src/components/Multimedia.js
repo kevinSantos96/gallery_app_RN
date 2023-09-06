@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet,RefreshControl } from 'react-native';
 import RNFS from 'react-native-fs';
 import Images from './Images';
 
 
 const ImageListScreen = ()=>{
   const [imageData,setImageData] =  useState([]) 
-  
+  const [refreshing,setRefreshing] = useState(false)
   async function loadImagesFromStorage(){
     try {
       //pictures fotos
@@ -22,6 +22,10 @@ const ImageListScreen = ()=>{
       const downloadFolderPath = RNFS.ExternalStorageDirectoryPath +'/Download'
       const downloadImages = await RNFS.readDir(downloadFolderPath)
       //console.log(downloadImages)
+      //OpenCamera
+      // const OpenCameraFolderPath = RNFS.ExternalStorageDirectoryPath +'/DCIM/OpenCamera'
+      // const OpenCameraPhotos =  await RNFS.readDir(OpenCameraFolderPath)
+
 
       const items =[]
       files.map((file)=>{
@@ -66,6 +70,7 @@ const ImageListScreen = ()=>{
       };
       items.sort(compararFechas)
       setImageData(items.filter((file)=>/\.(jpg|jpeg|png|gif)$/i.test(file.path)))
+      setRefreshing(false)
     } catch (error) {
       console.error('Error al cargar las imágenes:', error);
     }
@@ -74,11 +79,17 @@ const ImageListScreen = ()=>{
     loadImagesFromStorage();
   }, [])
   
+  function handleRefresh(){
+    setRefreshing(true)
+    loadImagesFromStorage()
+  }
   return(
     <View style={{flex:1,backgroundColor:'#000'}}>
       <View>
-      { <FlatList data={imageData} keyExtractor={(item)=> item.name} numColumns={3}  renderItem={({item})=>{
-            return(<Images path={"file:///"+ item.path}/>)
+      { <FlatList data={imageData} 
+                  refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />)} 
+                  keyExtractor={(item)=> item.name} numColumns={3}  renderItem={({item})=>{
+                                return(<Images path={"file:///"+ item.path}/>)
       }} />}
       </View>
     </View>
