@@ -6,8 +6,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
 import requestStoragePermission from './src/components/Permission';
 //Componentes
-import Splash from './src/screens/Splash';
+
 import MyTabs from './src/components/TabBar';
+import {SplashScreen} from'./src/screens/Splash';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -16,9 +17,13 @@ const App = () => {
   }, [])
   
   return (
-    <PaperProvider>
-      <MyTabs/>
-    </PaperProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='PantallaInicial' component={SplashScreen} options={{header:()=>null}}/>
+        <Stack.Screen name='TabNavigator' component={MyTabs}  options={{header:()=>null}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+
   );
 };
 
