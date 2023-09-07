@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 //Screens
 import DocumentScreen from "../screens/Documents";
 import ImageListScreen from "./Multimedia";
+import CameraScreen from "../screens/CameraScreen";
 const Tab = createBottomTabNavigator()
 
 const MyTabs=()=>{
@@ -21,16 +21,18 @@ const MyTabs=()=>{
                                     iconName = focused ? 'play-circle':'play-circle-outline'
                                 }else if(rn==="Documentos"){
                                     iconName= focused ? 'document':'document-outline'
+                                }else if(rn==="Camara"){
+                                    iconName= focused ? 'camera':'camera-outline'
                                 }
                                 return <Ionicons name={iconName} size={size} color={color}/>
                             },
-                            tabBarActiveTintColor: '#FF3F2E',
+                            tabBarActiveTintColor: '#F20505',
                             tabBarInactiveTintColor: 'grey',
                             labelStyle:{ paddingBottom:10, fontSize:14 },
                             tabBarStyle:{padding:10, height:70},
                             headerTitleAlign:'center',
                             headerStyle: {
-                                backgroundColor: '#FF3F2E'
+                                backgroundColor: '#F20505'
                             },
                             headerTintColor:'#FFF',
                             headerTitleStyle: {
@@ -39,8 +41,8 @@ const MyTabs=()=>{
                         })}
                         >
             {/* <Tab.Screen name="Galeria" component ={GalleryScreen} /> */}
-            {/* <Tab.Screen name="Grabador" component ={AudioRecoderScreen} /> */}
             <Tab.Screen name="Fotos" component ={ImageListScreen} />
+            <Tab.Screen name="Camara" component ={CameraScreen} />
             <Tab.Screen name="Documentos" component ={DocumentScreen}  />
         </Tab.Navigator>
     )

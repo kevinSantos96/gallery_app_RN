@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet,RefreshControl } from 'react-native';
-import RNFS from 'react-native-fs';
 import Images from './Images';
-import requestStoragePermission from './Permission';
 import { getImagesCamera, getImagesDownload, getImagesPictures, getImagesWhatsapp, getOpenCameraPictures } from '../helpers/getPictures';
 
 
@@ -103,7 +101,7 @@ const ImageListScreen = ()=>{
       {imageData.length > 0 && <FlatList data={imageData} 
                   refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />)} 
                   keyExtractor={(item)=> item.name} numColumns={3}  renderItem={({item})=>{
-                                return(<Images path={"file:///"+ item.path}/>)
+                                return(<Images path={"file:///"+ item.path} uri={item.path} name={item.name} refreshing={setRefreshing}/>)
       }} />}
       </View>
     </View>

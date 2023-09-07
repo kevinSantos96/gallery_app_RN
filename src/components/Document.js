@@ -9,8 +9,15 @@ const DocumentViwer = ({path})=>{
     return(
         <View style={styles.container}>
           <Pdf
+            ref={(pdf) => { this.pdf = pdf; }}
             trustAllCerts={false}
             source={{uri:path}}
+            onLoadComplete={(numberOfPages,filePath) => {
+                console.log(`Number of pages: ${numberOfPages}`);
+            }}
+            onPageChanged={(page,numberOfPages) => {
+                console.log(`Current page: ${page}`);
+            }}
             style={styles.pdf}
           />
         </View>
