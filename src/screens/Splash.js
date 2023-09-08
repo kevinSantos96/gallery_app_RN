@@ -15,8 +15,10 @@ export const SplashScreen = ({navigation}) => {
   }
   return (
       <View style={styles.content}>
-        <Image style={styles.Image} source={require('../assets/BAC_Credomatic.png')}/>
-        <View style={{marginVertical:40,width:'50%'}}>
+        <View style={{width:'50%',height:'40%'}}>
+          <Image style={styles.Image} source={require('../assets/bacredomatic_logo_small.png')}/>
+        </View>
+        <View style={{width:'50%'}}>
           <Button title='Entrar' onPress={handlePress}/>
         </View>
       </View>
@@ -33,8 +35,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   Image:{
-    width:"60%",
-    height:'50%'
+    width:"100%",
+    height:'60%'
   },
   btnOpen:{
        backgroundColor: '#1075BB',

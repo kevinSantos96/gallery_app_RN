@@ -282,7 +282,6 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation project(':lottie-react-native')
     implementation project(':react-native-vector-icons')
-    implementation project(':react-native-html-to-pdf')
     implementation project(':react-native-fs')
     implementation project(':react-native-file-picker')
     implementation "com.facebook.react:react-native:+"  // From node_modules
