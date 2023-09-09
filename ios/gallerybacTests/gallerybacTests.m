@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface galleryappTests : XCTestCase
+@interface gallerybacTests : XCTestCase
 
 @end
 
-@implementation galleryappTests
+@implementation gallerybacTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
