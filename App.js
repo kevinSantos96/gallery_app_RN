@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
-import requestStoragePermission from './src/components/Permission';
+import {PermissionsWriteStorage,PermissonCamera,PermissonReadStorage} from './src/components/Permission';
 //Componentes
 
 import MyTabs from './src/components/TabBar';
@@ -13,7 +13,9 @@ import {SplashScreen} from'./src/screens/Splash';
 const Stack = createStackNavigator();
 const App = () => {
   useEffect(() => {
-    requestStoragePermission()
+    PermissionsWriteStorage();
+    PermissonReadStorage();
+    PermissonCamera();
   }, [])
   
   return (

@@ -10,10 +10,10 @@ const CameraScreen=()=> {
 
     const options={
       mediaType: 'photo',
-      quality: 0.6,
+      quality: 0.5,
       saveToPhotos:false,
-      includeBase64: false,
-      encoding: 'uft8'
+      cameraType:'back'
+    
     }
 
     launchCamera(options,resp=>{

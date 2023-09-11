@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { Text,Image, StyleSheet,View, TouchableOpacity,Modal } from 'react-native'
+import { Image, StyleSheet,View, TouchableOpacity,Modal } from 'react-native'
 import ImageViewer from "react-native-image-zoom-viewer";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from  'react-native-fs'
-import EditImage from './EditImage';
+import ImagePicker from 'react-native-image-crop-picker';
 //import Modal from "react-native-modal"
 
 function Images({path,uri,name,refreshing}) {
   const [imageSelect, setimageSelect] = useState([])
   const[openModal,setOpenModal] = useState(false)
-  const [openModalEdit, setOpenModalEdit]= useState(false)
   
   function toggleModal(){
     setimageSelect([{url:path,props:{}}])
@@ -17,26 +16,41 @@ function Images({path,uri,name,refreshing}) {
   }
   //Cortar la imagen
   function handleCropImg(){
-    setOpenModalEdit(!openModal)
+    ImagePicker.openCropper({
+      path: path,
+      width:300,
+      height:400,
+      freeStyleCropEnabled:true,
+    }).then(image=>{
+      const imagePath = `${RNFS.ExternalStorageDirectoryPath}/Pictures/${image.modificationDate}.jpg`
+      RNFS.copyFile(image.path,imagePath)
+      .then(()=>{console.log('Imagen almacenada con exito: ',image.path); 
+      refreshing(true);
+      setOpenModal(true)})
+      .catch((error)=>{console.log('error al alamacenamiento de la imagen: ',error)})
+    })
+    .catch(err=>console.log(err))
   }
   //Elimina la imagen
   function handleDeleteImg(){
+    const trashPath = RNFS.ExternalDirectoryPath + '/.Trash'
     const filePath = path.split('////').pop()
     RNFS.exists(filePath)
     .then((res)=>{
       if (res){
-       return RNFS.unlink(filePath)
+       return RNFS.moveFile(uri,trashPath)
        .then(() => {
          console.log('deleted');
-         RNFS.scanFile(filePath)
-           .then(() => {
-             console.log('scanned');
-             refreshing(true);
-             setOpenModal(!openModal)
-           })
-           .catch(err => {
-             console.log(err);
-           });
+         refreshing(true)
+        //  RNFS.scanFile(filePath)
+        //    .then(() => {
+        //      console.log('scanned');
+        //      refreshing(true);
+        //      setOpenModal(!openModal)
+        //    })
+        //    .catch(err => {
+        //      console.log(err);
+        //    });
        })
        .catch((err) => {         
            console.log(err);
