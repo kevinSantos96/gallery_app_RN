@@ -10,7 +10,7 @@ const DocumentScreen = ()=>{
     const [openModal,setOpenModal] = useState(false)
     const options = {
         title: 'Selecciona un archivo PDF o DOCX',
-        filetype: ['.pdf', '.docx'],
+        filetype: ['.pdf'],
       };
     async function loadDocumentsFromStorage(){
         FilePickerManager.showFilePicker(options, (response) => {
@@ -21,7 +21,8 @@ const DocumentScreen = ()=>{
               console.log('FilePickerManager Error: ', response.error);
             }
             else {
-              setDocumets("file://"+response.path)
+              setDocumets("file:///"+response.path)
+              //console.log(documets)
               setOpenModal(!openModal)
             }
           });

@@ -18,7 +18,25 @@ async function requestStoragePermission(){
         console.log('Permiso concedido');
       } else {
         console.log('Permiso denegado');
+       
       }
+
+      const grantedCam = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Permiso de camara',
+          message: 'Necesitamos acceder a la camara del dispositivo.',
+          buttonNeutral: 'Preguntar luego',
+          buttonNegative: 'Cancelar',
+          buttonPositive: 'OK',
+        }
+      )
+      if (grantedCam === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Permiso concedido');
+      } else {
+        console.log('Permiso denegado');
+      }
+
     } catch (err) {
       console.warn(err);
     }

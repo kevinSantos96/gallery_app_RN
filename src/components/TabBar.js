@@ -1,41 +1,38 @@
 import React from "react";
-import { View,Text } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 //Screens
-import AudioRecoderScreen from "../screens/AudioRecoder";
-import GalleryScreen from "../screens/Gallery";
-import Splash from "../screens/Splash";
 import DocumentScreen from "../screens/Documents";
 import ImageListScreen from "./Multimedia";
+import CameraScreen from "../screens/CameraScreen";
 const Tab = createBottomTabNavigator()
 
 const MyTabs=()=>{
     return(
-        <NavigationContainer>
-        <Tab.Navigator initialRouteName="Multimedia"
+        <Tab.Navigator initialRouteName="Fotos"
                         screenOptions={({route})=>({
                             tabBarIcon:({focused,color,size})=>{
                                 let iconName;
                                 let rn= route.name;
 
-                                if(rn==="Multimedia"){
+                                if(rn==="Fotos"){
                                     iconName = focused ? 'image':'image-outline'
                                 }else if(rn==="Grabador"){
                                     iconName = focused ? 'play-circle':'play-circle-outline'
                                 }else if(rn==="Documentos"){
                                     iconName= focused ? 'document':'document-outline'
+                                }else if(rn==="Camara"){
+                                    iconName= focused ? 'camera':'camera-outline'
                                 }
                                 return <Ionicons name={iconName} size={size} color={color}/>
                             },
-                            tabBarActiveTintColor: '#FF3F2E',
+                            tabBarActiveTintColor: '#F20505',
                             tabBarInactiveTintColor: 'grey',
                             labelStyle:{ paddingBottom:10, fontSize:14 },
                             tabBarStyle:{padding:10, height:70},
                             headerTitleAlign:'center',
                             headerStyle: {
-                                backgroundColor: '#FF3F2E'
+                                backgroundColor: '#F20505'
                             },
                             headerTintColor:'#FFF',
                             headerTitleStyle: {
@@ -44,13 +41,10 @@ const MyTabs=()=>{
                         })}
                         >
             {/* <Tab.Screen name="Galeria" component ={GalleryScreen} /> */}
-            {/* <Tab.Screen name="Grabador" component ={AudioRecoderScreen} /> */}
-            <Tab.Screen name="Multimedia" component ={ImageListScreen} />
-            <Tab.Screen name="Documentos" component ={DocumentScreen} />
-           {/*  <Tab.Screen  name="splash"  component={Splash} options={{animationEnabled: false, header: () => null}}/> */}
+            <Tab.Screen name="Fotos" component ={ImageListScreen} />
+            <Tab.Screen name="Camara" component ={CameraScreen} />
+            <Tab.Screen name="Documentos" component ={DocumentScreen}  />
         </Tab.Navigator>
-        </NavigationContainer>
-        
     )
 }
 
