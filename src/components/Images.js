@@ -38,10 +38,11 @@ function Images({path,uri,name,refreshing}) {
     RNFS.exists(filePath)
     .then((res)=>{
       if (res){
-       return RNFS.moveFile(uri,trashPath)
+       return RNFS.moveFile(path,trashPath)
        .then(() => {
          console.log('deleted');
          refreshing(true)
+         setOpenModal(!openModal)
         //  RNFS.scanFile(filePath)
         //    .then(() => {
         //      console.log('scanned');

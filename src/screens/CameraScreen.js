@@ -25,7 +25,7 @@ const CameraScreen=()=> {
       const nameImage = GenerarId();
       let imageUri = resp.uri || resp.assets?.[0]?.uri;
       console.log(imageUri)
-      const imagePath = `${RNFS.ExternalStorageDirectoryPath}/DCIM/Camera/${nameImage}.jpg`
+      const imagePath = `${RNFS.ExternalStorageDirectoryPath}/Pictures/${nameImage}.jpg`
       RNFS.moveFile(imageUri,imagePath).then(()=>{
           const source = {uri: imagePath}
           console.log(source)
