@@ -13,6 +13,7 @@ import net.gallery.bac.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.airbnb.android.react.lottie.LottiePackage;
+import com.rnfs.RNFSPackage;
 //import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+          new RNFSPackage();
           // new MainReactPackage();
           // new RNHTMLtoPDFPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:

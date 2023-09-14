@@ -1,48 +1,62 @@
 import React, { useState } from 'react'
-import { Text,Image, StyleSheet,View, TouchableOpacity,Modal } from 'react-native'
+import { Image, StyleSheet,View, TouchableOpacity,Modal, Alert } from 'react-native'
 import ImageViewer from "react-native-image-zoom-viewer";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from  'react-native-fs'
-import EditImage from './EditImage';
+import ImagePicker from 'react-native-image-crop-picker';
 //import Modal from "react-native-modal"
 
 function Images({path,uri,name,refreshing}) {
   const [imageSelect, setimageSelect] = useState([])
   const[openModal,setOpenModal] = useState(false)
-  const [openModalEdit, setOpenModalEdit]= useState(false)
   
   function toggleModal(){
     setimageSelect([{url:path,props:{}}])
     setOpenModal(!openModal)
   }
+
   //Cortar la imagen
   function handleCropImg(){
-    setOpenModalEdit(!openModal)
+    ImagePicker.openCropper({
+      path: path,
+      freeStyleCropEnabled:true,
+    }).then(image=>{
+      const imagePath = `${RNFS.ExternalStorageDirectoryPath}/Pictures/${image.modificationDate}.jpg`
+      RNFS.copyFile(image.path,imagePath)
+      .then(()=>{console.log('Imagen almacenada con exito: ',image.path); 
+      refreshing(true);
+      setimageSelect([{url:image.path,props:{}}]);
+      
+    })
+      .catch((error)=>{console.log('error al alamacenamiento de la imagen: ',error)})
+    })
+    .catch(err=>console.log(err))
   }
+
   //Elimina la imagen
   function handleDeleteImg(){
+    const trashPath = RNFS.ExternalDirectoryPath + '/.Trash'
     const filePath = path.split('////').pop()
     RNFS.exists(filePath)
     .then((res)=>{
       if (res){
-       return RNFS.unlink(filePath)
+       return RNFS.moveFile(path,trashPath)
        .then(() => {
          console.log('deleted');
-         RNFS.scanFile(filePath)
-           .then(() => {
-             console.log('scanned');
-             refreshing(true);
-             setOpenModal(!openModal)
-           })
-           .catch(err => {
-             console.log(err);
-           });
+         refreshing(true)
+         setOpenModal(!openModal)
        })
        .catch((err) => {         
            console.log(err);
        })
       }
     }).catch(()=>console.log('no existe'))
+  }
+  const handleAlert=()=>{
+    Alert.alert('Desea eliminar esta imagen?','',[
+      {text:'Cancelar',style:'cancel'},
+      {text:'Aceptar',onPress:handleDeleteImg}
+    ])
   }
 
   return (
@@ -61,7 +75,7 @@ function Images({path,uri,name,refreshing}) {
              <TouchableOpacity onPress={handleCropImg} >
                   <Ionicons name="create-outline" color={"#FFF"}size={30} style={{marginBottom:8, marginRight:5}} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleDeleteImg}>
+              <TouchableOpacity onPress={handleAlert}>
                   <Ionicons name="trash-outline" color={"#FFF"}size={30} style={{marginBottom:8, marginRight:5}} />
               </TouchableOpacity>
              </View>
