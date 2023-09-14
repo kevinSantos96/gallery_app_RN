@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, StyleSheet,View, TouchableOpacity,Modal } from 'react-native'
+import { Image, StyleSheet,View, TouchableOpacity,Modal, Alert } from 'react-native'
 import ImageViewer from "react-native-image-zoom-viewer";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from  'react-native-fs'
@@ -14,23 +14,25 @@ function Images({path,uri,name,refreshing}) {
     setimageSelect([{url:path,props:{}}])
     setOpenModal(!openModal)
   }
+
   //Cortar la imagen
   function handleCropImg(){
     ImagePicker.openCropper({
       path: path,
-      width:300,
-      height:400,
       freeStyleCropEnabled:true,
     }).then(image=>{
       const imagePath = `${RNFS.ExternalStorageDirectoryPath}/Pictures/${image.modificationDate}.jpg`
       RNFS.copyFile(image.path,imagePath)
       .then(()=>{console.log('Imagen almacenada con exito: ',image.path); 
       refreshing(true);
-      setOpenModal(true)})
+      setimageSelect([{url:image.path,props:{}}]);
+      
+    })
       .catch((error)=>{console.log('error al alamacenamiento de la imagen: ',error)})
     })
     .catch(err=>console.log(err))
   }
+
   //Elimina la imagen
   function handleDeleteImg(){
     const trashPath = RNFS.ExternalDirectoryPath + '/.Trash'
@@ -43,21 +45,18 @@ function Images({path,uri,name,refreshing}) {
          console.log('deleted');
          refreshing(true)
          setOpenModal(!openModal)
-        //  RNFS.scanFile(filePath)
-        //    .then(() => {
-        //      console.log('scanned');
-        //      refreshing(true);
-        //      setOpenModal(!openModal)
-        //    })
-        //    .catch(err => {
-        //      console.log(err);
-        //    });
        })
        .catch((err) => {         
            console.log(err);
        })
       }
     }).catch(()=>console.log('no existe'))
+  }
+  const handleAlert=()=>{
+    Alert.alert('Desea eliminar esta imagen?','',[
+      {text:'Cancelar',style:'cancel'},
+      {text:'Aceptar',onPress:handleDeleteImg}
+    ])
   }
 
   return (
@@ -76,7 +75,7 @@ function Images({path,uri,name,refreshing}) {
              <TouchableOpacity onPress={handleCropImg} >
                   <Ionicons name="create-outline" color={"#FFF"}size={30} style={{marginBottom:8, marginRight:5}} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleDeleteImg}>
+              <TouchableOpacity onPress={handleAlert}>
                   <Ionicons name="trash-outline" color={"#FFF"}size={30} style={{marginBottom:8, marginRight:5}} />
               </TouchableOpacity>
              </View>

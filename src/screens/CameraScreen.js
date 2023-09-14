@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View,Text, StyleSheet,Button, FlatListComponent } from 'react-native'
 import { launchCamera } from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
 import { GenerarId } from '../helpers/generarId';
+import { PermissonCamera } from '../components/Permission';
 
 
 const CameraScreen=()=> {
+  async function getPermissionCamera(){
+    const response = await PermissonCamera();
+    if (response){
+      openCamera();
+    } 
+  }
+
   const openCamera= ()=>{
 
     const options={
@@ -25,7 +33,20 @@ const CameraScreen=()=> {
       const nameImage = GenerarId();
       let imageUri = resp.uri || resp.assets?.[0]?.uri;
       console.log(imageUri)
+      //valida si el directorio existe
+      RNFS.exists(`${RNFS.ExternalStorageDirectoryPath}/DCIM/Camera`).then((response)=>{
+       if (response){
+        console.log("existe")
+       }else{
+        RNFS.mkdir(`${RNFS.ExternalStorageDirectoryPath}/DCIM/Camera`).then(()=>{console.log("Carpeta creada con exito")})
+        .catch(err=>console.log('error en crear la carpeta'+err))
+       }
+      }).catch((err) => {         
+        console.log(err);
+      })
+
       const imagePath = `${RNFS.ExternalStorageDirectoryPath}/Pictures/${nameImage}.jpg`
+
       RNFS.moveFile(imageUri,imagePath).then(()=>{
           const source = {uri: imagePath}
           console.log(source)
@@ -36,8 +57,9 @@ const CameraScreen=()=> {
     }
     })
   }
+
   useEffect(() => {
-    openCamera()
+    getPermissionCamera()
   }, [])
   
   return (

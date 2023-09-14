@@ -12,9 +12,7 @@ export const SplashScreen = ({navigation}) => {
  }
 
   function handlePress(){
-
     //getPermission()
-
     navigation.dispatch(
       CommonActions.reset({
         index:0,
