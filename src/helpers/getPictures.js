@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
 export const getImagesCamera=async()=>{
@@ -23,10 +24,31 @@ export const getImagesWhatsapp=async()=>{
         status: true
     }
     try {
-        const WhatsAppFolderPath = RNFS.ExternalStorageDirectoryPath +'/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images';
-        const response =await RNFS.readDir(WhatsAppFolderPath);
-        data.items=response
-        data.status= true
+        let path = `${RNFS.ExternalStorageDirectoryPath}/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images`
+        const existWp= await RNFS.exists(path)
+
+        if (existWp){
+            const response =await RNFS.readDir(path);
+            data.items=response
+            data.status= true   
+        }else{
+            var WhatsAppFolderPath = RNFS.ExternalStorageDirectoryPath +'/WhatsApp/Media/WhatsApp Images';
+            const response =await RNFS.readDir(WhatsAppFolderPath);
+            data.items=response
+            data.status= true  
+        }
+
+        // if (Platform.Version<32){
+        //     const WhatsAppFolderPath = RNFS.ExternalStorageDirectoryPath +'/WhatsApp/Media/WhatsApp Images';
+        //     const response =await RNFS.readDir(WhatsAppFolderPath);
+        //     data.items=response
+        //     data.status= true   
+        // }else{
+        //     const WhatsAppFolderPath = RNFS.ExternalStorageDirectoryPath +'/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images';
+        //     const response =await RNFS.readDir(WhatsAppFolderPath);
+        //     data.items=response
+        //     data.status= true    
+        // }
     } catch (error) {
         data.status=false 
         console.log(error + ': whatsapp')

@@ -4,9 +4,10 @@ import ImageViewer from "react-native-image-zoom-viewer";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from  'react-native-fs'
 import ImagePicker from 'react-native-image-crop-picker';
+import ModalView from './ModalView';
 //import Modal from "react-native-modal"
 
-function Images({path,uri,name,refreshing}) {
+function Images({path,uri,setRefreshing}) {
   const [imageSelect, setimageSelect] = useState([])
   const[openModal,setOpenModal] = useState(false)
   
@@ -24,13 +25,20 @@ function Images({path,uri,name,refreshing}) {
       const imagePath = `${RNFS.ExternalStorageDirectoryPath}/Pictures/${image.modificationDate}.jpg`
       RNFS.copyFile(image.path,imagePath)
       .then(()=>{console.log('Imagen almacenada con exito: ',image.path); 
-      refreshing(true);
-      setimageSelect([{url:image.path,props:{}}]);
-      
+       setimageSelect([{url:image.path,props:{}}]);
     })
       .catch((error)=>{console.log('error al alamacenamiento de la imagen: ',error)})
     })
     .catch(err=>console.log(err))
+
+    return(
+    <ModalView openModal={openModal} 
+               handleAlert={handleAlert} 
+               handleCropImg={handleCropImg} 
+               imageSelect={imageSelect}
+               setOpenModal={setOpenModal}
+               />
+    )
   }
 
   //Elimina la imagen
@@ -40,10 +48,10 @@ function Images({path,uri,name,refreshing}) {
     RNFS.exists(filePath)
     .then((res)=>{
       if (res){
-       return RNFS.moveFile(path,trashPath)
+       return RNFS.moveFile(uri,trashPath)
        .then(() => {
          console.log('deleted');
-         refreshing(true)
+         setRefreshing(true)
          setOpenModal(!openModal)
        })
        .catch((err) => {         
@@ -82,6 +90,7 @@ function Images({path,uri,name,refreshing}) {
              
           </View>
         </Modal>
+   
     </View>
   )
 }
@@ -98,15 +107,15 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      padding:10,
+      padding:0,
       margin: 2,
       borderWidth: 1,
       borderColor: '#ccc',
       borderRadius: 5,
      },
     imagen:{
-        width: 110,
-        height:110
+        width: 125,
+        height:140
     },
     cropImg:{
       backgroundColor:'#000',

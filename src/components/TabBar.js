@@ -40,9 +40,8 @@ const MyTabs=()=>{
                             }
                         })}
                         >
-            {/* <Tab.Screen name="Galeria" component ={GalleryScreen} /> */}
-            <Tab.Screen name="Fotos" component ={ImageListScreen} />
-            <Tab.Screen name="Camara" component ={CameraScreen} />
+            <Tab.Screen name="Fotos" component ={ImageListScreen} options={{header:()=>null}} />
+            {/* <Tab.Screen name="Grabador" component ={CameraScreen} /> */}
             <Tab.Screen name="Documentos" component ={DocumentScreen}  />
         </Tab.Navigator>
     )

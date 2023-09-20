@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet,RefreshControl } from 'react-native';
+import { View, FlatList, StyleSheet,RefreshControl,Text } from 'react-native';
 import Images from '../components/Images';
 import { getImagesCamera, getImagesDownload, getImagesPictures, getImagesWhatsapp, getOpenCameraPictures } from '../helpers/getPictures';
-
+import OpenCamera from '../components/OpenCamera';
 
 const ImageListScreen = ()=>{
   const [imageData,setImageData] =  useState([])
@@ -82,7 +82,6 @@ const ImageListScreen = ()=>{
       data.sort(compararFechas)
       setImageData(data.filter((file)=>/\.(jpg|jpeg|png|gif)$/i.test(file.path)))
      setRefreshing(false)
-     console.log('me repito')
     } catch (error) {
       console.error('Error al cargar las imágenes:', error);
     }
@@ -95,15 +94,19 @@ const ImageListScreen = ()=>{
   function handleRefresh(){
     setRefreshing(true)
   }
+
   return(
     <View style={{flex:1,backgroundColor:'#000'}}>
       <View>
-      {imageData.length > 0 && <FlatList data={imageData} 
+      {imageData.length > 0 ? <FlatList data={imageData} 
                   refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />)} 
                   keyExtractor={(item)=> item.name} numColumns={3}  renderItem={({item})=>{
-                                return(<Images path={"file:///"+ item.path} uri={item.path} name={item.name} refreshing={setRefreshing}/>)
-      }} />}
+                                return(<Images path={"file:///"+ item.path} uri={item.path} setRefreshing={setRefreshing} />)}} />:
+                              <Text style={styles.texto}>No se encontrarón imagenes</Text>
+                              }
       </View>
+      {/* button open cam */}
+      <OpenCamera setRefreshing={setRefreshing}/>
     </View>
   )
 
@@ -112,12 +115,12 @@ const ImageListScreen = ()=>{
 const styles = StyleSheet.create({
   texto:{
     textAlign:'center',
-    fontSize:18
-  },
-  content:{
-   display:'flex',
-   width:'50%',
-   backgroundColor:'#fff'
+    fontSize:18,
+    color:'#fff',
+    fontWeight:'600',
+    marginVertical:5,
+    justifyContent:'center',
+    alignItems:'center'
   },
   
 }) 
