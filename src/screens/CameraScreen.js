@@ -50,7 +50,7 @@ const CameraScreen=()=> {
       RNFS.moveFile(imageUri,imagePath).then(()=>{
           const source = {uri: imagePath}
           console.log(source)
-        })
+        }) 
         .catch((err)=>{
           console.log('Error el almacenar la imagen: ',err)
         })

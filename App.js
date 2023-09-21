@@ -1,10 +1,8 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Provider as PaperProvider} from 'react-native-paper';
-import {PermissonCamera,PermissonReadStorage,PermissionsWriteStorage, chekMultiplePermission} from './src/components/Permission';
+import {PermissonCamera,PermissonReadStorage,PermissionsWriteStorage, PermissionsManageStorage} from './src/components/Permission';
 //Componentes
 
 import MyTabs from './src/components/TabBar';

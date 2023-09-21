@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from  'react-native-fs'
 import ImagePicker from 'react-native-image-crop-picker';
 import ModalView from './ModalView';
+//import {FileSystem} from 'react-native-unimodules'
 //import Modal from "react-native-modal"
 
 function Images({path,uri,setRefreshing}) {
@@ -48,7 +49,7 @@ function Images({path,uri,setRefreshing}) {
     RNFS.exists(filePath)
     .then((res)=>{
       if (res){
-       return RNFS.moveFile(uri,trashPath)
+       return RNFS.unlink(`file:///${uri}`)
        .then(() => {
          console.log('deleted');
          setRefreshing(true)
@@ -110,12 +111,12 @@ const styles = StyleSheet.create({
       padding:0,
       margin: 2,
       borderWidth: 1,
-      borderColor: '#ccc',
+      // borderColor: '#ccc',
       borderRadius: 5,
      },
     imagen:{
         width: 125,
-        height:140
+        height:200
     },
     cropImg:{
       backgroundColor:'#000',
