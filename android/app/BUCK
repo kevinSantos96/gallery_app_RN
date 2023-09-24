@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "net.gallery.bac",
+    package = "com.bachn.galeriasiv",
 )
 
 android_resource(
     name = "res",
-    package = "net.gallery.bac",
+    package = "com.bachn.galeriasiv",
     res = "src/main/res",
 )
 

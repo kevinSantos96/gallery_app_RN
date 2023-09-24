@@ -1,4 +1,4 @@
-package net.gallery.bac;
+package com.bachn.galeriasiv;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "gallerybac";
+    return "Bac_Galeria";
   }
 
   /**

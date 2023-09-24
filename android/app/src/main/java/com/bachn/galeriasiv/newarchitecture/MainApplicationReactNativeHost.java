@@ -1,4 +1,4 @@
-package net.gallery.bac.newarchitecture;
+package com.bachn.galeriasiv.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import net.gallery.bac.BuildConfig;
-import net.gallery.bac.newarchitecture.components.MainComponentsRegistry;
-import net.gallery.bac.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.bachn.galeriasiv.BuildConfig;
+import com.bachn.galeriasiv.newarchitecture.components.MainComponentsRegistry;
+import com.bachn.galeriasiv.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

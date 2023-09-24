@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "net.gallery.bac",
+  "applicationId": "com.bachn.galeriasiv",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 3,
-      "versionName": "2.8.3",
+      "versionCode": 4,
+      "versionName": "2.8.4",
       "outputFile": "app-release.apk"
     }
   ],

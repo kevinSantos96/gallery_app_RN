@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "gallerybac.app"
-               BlueprintName = "gallerybac"
-               ReferencedContainer = "container:gallerybac.xcodeproj">
+               BuildableName = "BacGaleria.app"
+               BlueprintName = "BacGaleria"
+               ReferencedContainer = "container:BacGaleria.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "gallerybacTests.xctest"
-               BlueprintName = "gallerybacTests"
-               ReferencedContainer = "container:gallerybac.xcodeproj">
+               BuildableName = "BacGaleriaTests.xctest"
+               BlueprintName = "BacGaleriaTests"
+               ReferencedContainer = "container:BacGaleria.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "gallerybac.app"
-            BlueprintName = "gallerybac"
-            ReferencedContainer = "container:gallerybac.xcodeproj">
+            BuildableName = "BacGaleria.app"
+            BlueprintName = "BacGaleria"
+            ReferencedContainer = "container:BacGaleria.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "gallerybac.app"
-            BlueprintName = "gallerybac"
-            ReferencedContainer = "container:gallerybac.xcodeproj">
+            BuildableName = "BacGaleria.app"
+            BlueprintName = "BacGaleria"
+            ReferencedContainer = "container:BacGaleria.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
