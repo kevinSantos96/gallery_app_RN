@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.bachn.galeriasiv",
+  "applicationId": "com.vapcomercial.sivgaleria",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 4,
-      "versionName": "2.8.4",
+      "versionCode": 2,
+      "versionName": "2.8.5",
       "outputFile": "app-release.apk"
     }
   ],
