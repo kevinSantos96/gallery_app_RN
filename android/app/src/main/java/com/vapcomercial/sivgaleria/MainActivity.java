@@ -1,4 +1,4 @@
-package com.bachn.galeriasiv;
+package com.vapcomercial.sivgaleria;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Bac_Galeria";
+    return "SIV_Galeria";
   }
 
   /**
