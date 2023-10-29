@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet,RefreshControl,Text } from 'react-native';
+import { View, FlatList, StyleSheet,RefreshControl,Text,SafeAreaView } from 'react-native';
 import Images from '../components/Images';
 import { getImagesCamera, getImagesDownload, getImagesPictures, getImagesWhatsapp, getOpenCameraPictures } from '../helpers/getPictures';
 import OpenCamera from '../components/OpenCamera';
@@ -88,6 +88,7 @@ const ImageListScreen = ()=>{
   }
  
   useEffect(() => {
+
     loadImagesFromStorage();
   },[refreshing])
 
@@ -96,7 +97,7 @@ const ImageListScreen = ()=>{
   }
 
   return(
-    <View style={{flex:1,backgroundColor:'#000'}}>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <View>
       {imageData.length > 0 ? <FlatList data={imageData} 
                   refreshControl={(<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />)} 
@@ -107,7 +108,7 @@ const ImageListScreen = ()=>{
       </View>
       {/* button open cam */}
       <OpenCamera setRefreshing={setRefreshing}/>
-    </View>
+    </SafeAreaView>
   )
 
 }
@@ -120,7 +121,8 @@ const styles = StyleSheet.create({
     fontWeight:'600',
     marginVertical:5,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+   marginTop:20
   },
   
 }) 

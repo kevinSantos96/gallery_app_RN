@@ -1,22 +1,24 @@
 import React,{useState} from 'react';
 import {PermissionsAndroid, Platform} from 'react-native'
-import {check,PERMISSIONS,RESULTS,request, requestMultiple} from 'react-native-permissions';
+import {check,request,PERMISSIONS,RESULTS} from 'react-native-permissions';
 
 
 //React-native version
 
 export const chekMultiplePermission = async()=>{
-  if (Platform.OS ==='android' && Platform.Version < 33){
+  if (Platform.OS ==='android' && Platform.Version === 33){
     const granted = await PermissionsAndroid.requestMultiple([
-      android.permission.READ_EXTERNAL_STORAGE,
       android.permission.READ_MEDIA_IMAGES,
-      android.permission.WRITE_EXTERNAL_STORAGE,
-      android.permission.CAMERA
+      android.permission.CAMERA,
+      android.permission.READ_MEDIA_AUDIO,
+      android.permission.READ_MEDIA_VIDEO
     ])
 
-    if(granted[android.permission.READ_EXTERNAL_STORAGE] !=="granted" || granted[android.permission.READ_MEDIA_IMAGES] !=="granted" || 
-    granted[android.permission.WRITE_EXTERNAL_STORAGE] !=="granted" || granted[android.permission.CAMERA] !=="granted" ){
-      throw new Error("Requiere permission not granted")
+    if(granted[android.permission.READ_MEDIA_IMAGES] !=="granted" || granted[android.permission.CAMERA] !=="granted"||
+     granted[android.permission.READ_MEDIA_AUDIO] !=="granted" || granted[android.permission.READ_MEDIA_VIDEO] !=="granted")
+     {
+     throw new Error("Requiere permission not granted")
+      //console.log("Requiere permission not granted")
     } 
   }
 }
@@ -57,7 +59,6 @@ export const PermissonReadStorage = async()=>{
         buttonPositive: 'OK',
       }
     );
-
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('Permiso a leer fotos concedido');
     } else {
@@ -70,23 +71,110 @@ export const PermissonReadStorage = async()=>{
 }
 
 export const PermissionsWriteStorage= async()=>{
-  try {
-    const gramtedStorage = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      {
-        title: 'Gallery Bac solicita permisos de almacenamiento',
-        message: 'Necesitamos acceder a tu almacenamiento para mostrar las imágenes.',
-        buttonNeutral: 'Preguntar luego',
-        buttonNegative: 'Cancelar',
-        buttonPositive: 'OK',
-      }
-    )
-    if (gramtedStorage === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('Permiso almacenamiento concedido');
-    } else {
-      console.log('Permiso almacenamiento denegado');
+  if (Platform.OS==='android'){
+    try {
+       await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      )
+    } catch (error) {
+      console.warn(err);
     }
-  } catch (error) {
-    console.warn(err);
   }
+ 
 }
+
+//Libreria Permission
+export const PermissionMediaImages =()=>{
+    check(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES).then((result)=>{
+      switch (result){
+        case RESULTS.GRANTED:
+          console.log('Permiso a fotos concedido')
+          break;
+        case RESULTS.UNAVAILABLE:
+          console.log('Permiso no disponible en este dispositivo/plataforma.');
+              break;
+        case RESULTS.DENIED:
+          request(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES)
+                .then((requestResult) => {
+                  if (requestResult === RESULTS.GRANTED) {
+                    console.log('Permiso concedido después de la solicitud.');
+                  }
+                });
+              break;
+        case RESULTS.BLOCKED:
+          console.log('Permiso bloqueado. El usuario debe habilitarlo manualmente en la configuración de la aplicación.');
+              break;
+      }
+    })
+}
+  
+
+export const PermissionMediaVideo =()=>{
+    check(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO).then((result)=>{
+      switch (result){
+        case RESULTS.GRANTED:
+          console.log('Permiso a videos concedido')
+          break;
+        case RESULTS.UNAVAILABLE:
+          console.log('Permiso no disponible en este dispositivo/plataforma.');
+              break;
+        case RESULTS.DENIED:
+          request(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO)
+                .then((requestResult) => {
+                  if (requestResult === RESULTS.GRANTED) {
+                    console.log('Permiso concedido después de la solicitud.');
+                  }
+                });
+              break;
+        case RESULTS.BLOCKED:
+          console.log('Permiso bloqueado. El usuario debe habilitarlo manualmente en la configuración de la aplicación.');
+              break;
+      }
+    })
+}
+
+export const PermissionMediaAudio =()=>{
+    check(PERMISSIONS.ANDROID.READ_MEDIA_AUDIO).then((result)=>{
+      switch (result){
+        case RESULTS.GRANTED:
+          console.log('Permiso a audio concedido')
+          break;
+        case RESULTS.UNAVAILABLE:
+          console.log('Permiso no disponible en este dispositivo/plataforma.');
+              break;
+        case RESULTS.DENIED:
+          request(PERMISSIONS.ANDROID.READ_MEDIA_AUDIO)
+                .then((requestResult) => {
+                  if (requestResult === RESULTS.GRANTED) {
+                    console.log('Permiso concedido después de la solicitud.');
+                  }
+                });
+              break;
+        case RESULTS.BLOCKED:
+          console.log('Permiso bloqueado. El usuario debe habilitarlo manualmente en la configuración de la aplicación.');
+              break;
+      }
+    })
+
+}
+// export const PermissionsWriteStorage= async()=>{
+//   try {
+//     const gramtedStorage = await PermissionsAndroid.request(
+//       PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
+//       {
+//         title: 'Gallery Bac solicita permisos de almacenamiento',
+//         message: 'Necesitamos acceder a tu almacenamiento para mostrar las imágenes.',
+//         buttonNeutral: 'Preguntar luego',
+//         buttonNegative: 'Cancelar',
+//         buttonPositive: 'OK',
+//       }
+//     )
+//     if (gramtedStorage === PermissionsAndroid.RESULTS.GRANTED) {
+//       console.log('Permiso almacenamiento concedido');
+//     } else {
+//       console.log('Permiso almacenamiento denegado');
+//     }
+//   } catch (error) {
+//     console.warn(err);
+//   }
+// }

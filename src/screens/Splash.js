@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image, Button} from 'react-native';
 import { CommonActions } from '@react-navigation/native';
-import { PermissionsWriteStorage, PermissonCamera, PermissonReadStorage,chekMultiplePermission } from '../components/Permission';
+import { PermissionMediaImages,PermissionMediaVideo,PermissionMediaAudio } from '../components/Permission';
 
 export const SplashScreen = ({navigation}) => {
  async function getPermission(){
@@ -10,9 +10,10 @@ export const SplashScreen = ({navigation}) => {
    await PermissonCamera();
 //chekMultiplePermission();
  }
-
-  function handlePress(){
-    //getPermission()
+ function handlePress(){
+  PermissionMediaImages();
+  PermissionMediaVideo();
+  PermissionMediaAudio();
     navigation.dispatch(
       CommonActions.reset({
         index:0,

@@ -4,8 +4,6 @@ import Pdf from "react-native-pdf";
 
 
 const DocumentViwer = ({path})=>{
-   console.log("ruta:", path)
-    //const source = {uri:'http://samples.leanpub.com/thereactnativebook-sample.pdf',cache:true}
     return(
         <View style={styles.container}>
           <Pdf
